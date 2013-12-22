@@ -10,6 +10,7 @@ gRotateHandler  = None
 gConsoleHandler = None
 gLogFilePath    = None
 gLogDir         = None
+gConsoleANYWAY  = True
 
 LOG_LEVELS = {
     logging.DEBUG       : 'DEBUG',
@@ -150,13 +151,12 @@ def setConsoleLevel(level=None):
 
 
 
-CONSOLE_ANYWAY = False
 def info(text):
     msg = "%-35s - %s" % (calledBy(1), text)
     if gRootLogger:
         gRootLogger.info(msg)
     else:
-        if CONSOLE_ANYWAY: print "INFO    - ", msg
+        if gConsoleANYWAY: print "INFO    - ", msg
 
 
 def warning(text):
@@ -164,14 +164,14 @@ def warning(text):
     if gRootLogger:
         gRootLogger.warning(msg)
     else:
-        if CONSOLE_ANYWAY: print "WARNING - ", msg
+        if gConsoleANYWAY: print "WARNING - ", msg
 
 def error(text):
     msg = "%-35s - %s" % (calledBy(1), text)
     if gRootLogger:
         gRootLogger.error(msg)
     else:
-        if CONSOLE_ANYWAY: print "ERROR   - ", msg
+        if gConsoleANYWAY: print "ERROR   - ", msg
 
 
 def debug(text):
@@ -180,10 +180,11 @@ def debug(text):
     if gRootLogger:
         gRootLogger.debug(msg)
     else:
-        if CONSOLE_ANYWAY: print "DEBUG   - ", msg
+        if gConsoleANYWAY: print "DEBUG   - ", msg
 
 
-
+def setConsoleAnyway(status):
+    gConsoleANYWAY = status
 
 
 
