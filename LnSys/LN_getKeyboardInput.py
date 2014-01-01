@@ -13,8 +13,9 @@ from   types import *                     # per StringType, etc
 # * 29-08-2010 - Rimosso LnSys dalla chiamata alla LnSys.exit()
 # * 12-02-2012 - Cambiato keys in keyLIST
 # * 12-03-2013 - Cambiato keyLIST in validKeys
+# * 01-01-2014 - modificato il validKeysLIST.
 # ###########################################################################
-def getKeyboardInput(gv, msg, validKeys='ENTER', exitKey='X', deepLevel=3, fDEBUG=False):
+def getKeyboardInput(gv, msg, validKeys='ENTER', exitKey='X', deepLevel=3, fDEBUG=False, keySep=","):
     Prj         = gv.Prj
     LN          = gv.LN
     logger      = gv.LN.logger
@@ -23,8 +24,18 @@ def getKeyboardInput(gv, msg, validKeys='ENTER', exitKey='X', deepLevel=3, fDEBU
 
     exitKeyUPP = exitKey.upper()
 
-    validKeyLIST = validKeys.split('|')
+    if keySep in validKeys:
+        validKeyLIST = validKeys.split(keySep)
+    else:
+        validKeyLIST = list(validKeys)
 
+    if keySep in exitKeyUPP:
+        exitKeyLIST = exitKeyUPP.split(keySep)
+    else:
+        exitKeyLIST = list(exitKeyUPP)
+
+    # print exitKeyLIST
+    # print validKeyLIST
     print
     if fDEBUG:
         callerFunc1 = "%s" % (calledBy(deepLevel-1))
@@ -45,7 +56,7 @@ def getKeyboardInput(gv, msg, validKeys='ENTER', exitKey='X', deepLevel=3, fDEBU
                 else:
                     print '\n... please enter something\n'
 
-            elif choiceUPP in exitKeyUPP:
+            elif choiceUPP in exitKeyLIST:
                 print "Exiting on user requests"
                 sys.exit(1)
 

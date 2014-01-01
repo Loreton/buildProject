@@ -44,7 +44,7 @@ def getDictPtr(gv, origDict, keyList="", fCREATE=False, fieldSep=';'):
     retPtrDict = origDict
 
     for KEY in KEYList:
-        if not retPtrDict: continue                 # Cattura pointers NULL
+        if retPtrDict == None: continue                 # Cattura pointers NULL
         if  KEY in retPtrDict.keys():
             retPtrDict = retPtrDict[KEY]                       # puntiamolo
 

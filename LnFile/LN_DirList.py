@@ -25,12 +25,12 @@ import os, fnmatch
 #
 # ============================================================
 def dirList(gv, dirName, pattern='*', what='FDS', getFullPath=True, deepFileIndicator='1234ABCD.ZXC', deepLevelNO=99, static_MaxRCODE=[0]):
+    fDEBUG      = False # essendo ricorsivo è meglio controllare il logger manualmente altrimenti scrive moltissimo
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    if fDEBUG == True: logger.info('entered - [called by:%s]' % (calledBy(1)))
 
     fileList    = []
-    fDEBUG      = False
     MaxRCODE    = 0
 
     FILES       = True if 'F' in what else False
@@ -39,7 +39,7 @@ def dirList(gv, dirName, pattern='*', what='FDS', getFullPath=True, deepFileIndi
 
 
     deepLevelNO -= 1
-    logger.debug("entering into dir: %s searching for %s" % (dirName, pattern) )
+    if fDEBUG == True: logger.debug("entering into dir: %s searching for %s" % (dirName, pattern) )
 
 
         # limit the Subdirs at current level (The next iteration do not enter into SubDirs)    - da aggiustare
@@ -67,7 +67,7 @@ def dirList(gv, dirName, pattern='*', what='FDS', getFullPath=True, deepFileIndi
                         else:           fileList.append( file)
 
                 if SUBDIRS and os.path.isdir(dirfile):
-                    if fDEBUG == True: logger.console("going into dir: %s\\%s" % (dirfile, fSpec) )
+                    if fDEBUG == True: logger.debug("going into dir: %s\\%s" % (dirfile, fSpec) )
                     (rCode, newList) = dirList(gv, dirfile, pattern=fSpec, what=what, getFullPath=getFullPath, deepFileIndicator=deepFileIndicator, deepLevelNO=deepLevelNO)
                     MaxRCODE = max(MaxRCODE, rCode)
                     fileList.extend(newList)
@@ -80,7 +80,7 @@ def dirList(gv, dirName, pattern='*', what='FDS', getFullPath=True, deepFileIndi
             MaxRCODE = max(MaxRCODE, 10)
 
 
-    logger.info("exiting  from dir: %s" % (dirName) )
+    if fDEBUG == True: logger.info("exiting  from dir: %s" % (dirName) )
     return MaxRCODE, fileList
 
 
