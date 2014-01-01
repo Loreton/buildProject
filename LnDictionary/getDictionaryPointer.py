@@ -15,7 +15,7 @@ import types
 # = keyList può essere [] oppure "key1;key2;   key3 ; key4]
 # = Ritorna None: La keyList == [] oppure il dict non contiene KEYs
 # #########################################################################################
-def getDictPtr(gv, origDict, keyList="", fCREATE=False, stringSep=','):
+def getDictPtr(gv, origDict, keyList="", fCREATE=False, fieldSep=';'):
     Prj         = gv.Prj
     LN          = gv.LN
     logger      = gv.LN.LnLogger
@@ -28,7 +28,7 @@ def getDictPtr(gv, origDict, keyList="", fCREATE=False, stringSep=','):
         # - Convertiamo il tipo di path passatoci ----
     if type(keyList) == types.StringType:
         KEYList = []
-        for KEY in keyList.split(stringSep):
+        for KEY in keyList.split(fieldSep):
             KEY = KEY.strip()
             if KEY != '':
                 KEYList.append(KEY)

@@ -115,7 +115,7 @@ def getDictionaryTree(dictID, MaxDeepLevel=999, level=0, retCols='LTV'):
     if not type(dictID) in dictTYPES:
         return lista
 
-    # print '............................', type(dictID)
+
     for key, val in sorted(dictID.items()):
         valueTypeStr = str(type(val)).split("'")[1]
         valueType    = type(val)
@@ -132,12 +132,34 @@ def getDictionaryTree(dictID, MaxDeepLevel=999, level=0, retCols='LTV'):
         if valueType in dictTYPES:
             continue
 
+
+
         if values:
             if valueType in [types.StringType, types.UnicodeType]:
                 if val.strip() == '':
                     val = '"' + val + '"'
                 newLine = "%-50s: %s" % (newLine.rstrip(), val.strip())
                 lista.append(newLine)
+
+            elif isinstance(val, enumerate):
+                newLine = "%-50s: [" % (newLine.rstrip())   # Apertura LIST
+                lista.append(newLine)
+                for index, name in val:
+                    lista.append('%-54s: %20s.%02d' % (" ", name, index))
+                lista.append('%-50s: ]' %(' ') )            # Cjhiusura LIST
+
+            elif valueTypeStr.endswith('.enumerateClass'):
+                ENUM_SORTED_BY_VALUE = True
+                lista.append("%-50s: [" % (newLine.rstrip()))   # Apertura LIST
+                thisDICT = vars(val)                            # Devo trasformarlo in DICT per analizzarlo.
+                if ENUM_SORTED_BY_VALUE:                        # print sorted by value (comodo se il valore è numerico)
+                    for w in sorted(thisDICT, key=thisDICT.get, reverse=False):
+                        lista.append('%-54s: %20s.%02d' % (" ", w, thisDICT[w]))
+                else:                                           # print normale
+                    for key, value in sorted(thisDICT.items()):
+                        lista.append('%-54s: %20s.%02d' % (" ", key, value))
+                lista.append('%-50s: ]' %(' ') )                # Cjhiusura LIST
+
 
             elif valueType == types.ListType:
                 if len(val) == 0:

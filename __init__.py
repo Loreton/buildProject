@@ -15,6 +15,7 @@ import LnFile                   as file
 import LnProcess                as proc
 import LnString                 as string
 import LnFormat                 as fmt
+import LnExcel                  as excel
 
 # =========================================================================
 # Fore:  BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, RESET.
