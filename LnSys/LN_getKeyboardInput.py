@@ -27,15 +27,15 @@ def getKeyboardInput(gv, msg, validKeys='ENTER', exitKey='X', deepLevel=3, fDEBU
     if keySep in validKeys:
         validKeyLIST = validKeys.split(keySep)
     else:
-        validKeyLIST = list(validKeys)
+        validKeyLIST = validKeys
 
     if keySep in exitKeyUPP:
         exitKeyLIST = exitKeyUPP.split(keySep)
     else:
-        exitKeyLIST = list(exitKeyUPP)
+        exitKeyLIST = exitKeyUPP
 
-    # print exitKeyLIST
-    # print validKeyLIST
+    print exitKeyLIST
+    print validKeyLIST
     print
     if fDEBUG:
         callerFunc1 = "%s" % (calledBy(deepLevel-1))
@@ -51,7 +51,7 @@ def getKeyboardInput(gv, msg, validKeys='ENTER', exitKey='X', deepLevel=3, fDEBU
             if fDEBUG: print "choice: [%s]" % (choice)
 
             if choice == '':
-                if "ENTER" in validKeyLIST:
+                if "ENTER" in validKeys:
                     return ''
                 else:
                     print '\n... please enter something\n'

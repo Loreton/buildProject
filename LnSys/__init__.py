@@ -8,3 +8,4 @@ from LN_Exit                    import exit
 from LN_getKeyboardInput        import getKeyboardInput
 # from Enumerate                  import Enumerate
 from Enumerate                  import enumerateClass
+from SplitUnicode                  import splitUnicode

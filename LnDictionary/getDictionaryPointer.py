@@ -50,7 +50,8 @@ def getDictPtr(gv, origDict, keyList="", fCREATE=False, fieldSep=';'):
 
         else:
             if fCREATE:
-                retPtrDict[KEY] = {'%s CREATED NEW' % (KEY): True}
+                # retPtrDict[KEY] = {'%s CREATED NEW' % (KEY): True}
+                retPtrDict[KEY] = {}
                 retPtrDict = retPtrDict[KEY]
             else:
                 retPtrDict = None

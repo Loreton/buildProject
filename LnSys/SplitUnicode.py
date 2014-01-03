@@ -1,0 +1,25 @@
+#!/usr/bin/python -O
+# -*- coding: iso-8859-15 -*-
+
+
+def splitUnicode(gv, sourceStr, sep):
+    logger      = gv.LN.logger
+
+    logger.debug("Source string: <%s>" % (sourceStr) )
+
+    token = sourceStr.split(sep)
+
+    for i in range(len(token)):
+        u = token[i]
+        if not isinstance(u, unicode):
+            if isinstance(u, str):
+                token[i] = unicode( u, "latin-1" )
+            else:
+                pass   # integer or long datatype
+                # u = str(u)   # integer or long datatype
+        logger.debug("Token: <%s>" % (token[i]) )
+
+
+    return token
+
+

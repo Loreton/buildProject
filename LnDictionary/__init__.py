@@ -2,9 +2,11 @@
 # -*- coding: iso-8859-1 -*-
 
 # from  printDictionaryTree import *
-from  printDictionaryTree   import printDictionaryTree
-from  loadDictFile          import loadDictFile                 as loadFile         # da rimuovere
-from  loadDictFile          import loadDictFile
-from  getDictionaryPointer  import getDictPtr
-from  getDictionaryPointer  import getDictValue
+from  PrintDictionaryTree   import printDictionaryTree
+from  LoadDictFile          import loadDictFile                 as loadFile         # da rimuovere
+from  LoadDictFile          import loadDictFile
+from  GetDictionaryPointer  import getDictPtr
+from  GetDictionaryPointer  import getDictValue
+from  GetDictionaryTree     import getDictionaryTree
+from  DictionaryToList      import dictionaryToList
 
