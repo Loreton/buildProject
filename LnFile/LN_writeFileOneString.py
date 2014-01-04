@@ -11,7 +11,7 @@ import os
 def writeFileOneString(gv, outFname, strData, exitOnError=False):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     retVal = 0
     try:
@@ -27,5 +27,5 @@ def writeFileOneString(gv, outFname, strData, exitOnError=False):
         if exitOnError:
             exit(8, strError, stackLevel=4)
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return retVal

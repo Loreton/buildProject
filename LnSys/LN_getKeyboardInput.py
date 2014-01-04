@@ -20,7 +20,7 @@ def getKeyboardInput(gv, msg, validKeys='ENTER', exitKey='X', deepLevel=3, fDEBU
     LN          = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     exitKeyUPP = exitKey.upper()
 
@@ -34,10 +34,10 @@ def getKeyboardInput(gv, msg, validKeys='ENTER', exitKey='X', deepLevel=3, fDEBU
     else:
         exitKeyLIST = exitKeyUPP
 
-    print exitKeyLIST
-    print validKeyLIST
     print
     if fDEBUG:
+        print "exitKeyLIST....:", exitKeyLIST
+        print "validKeyLIST...:", validKeyLIST
         callerFunc1 = "%s" % (calledBy(deepLevel-1))
         callerFunc2 = "%s" % (calledBy(deepLevel))
         msg = "[%s - %s]\n         <%s [%s]> - (%s to exit) ==> " % (callerFunc2, callerFunc1, msg, validKeys, exitKey)
@@ -69,7 +69,7 @@ def getKeyboardInput(gv, msg, validKeys='ENTER', exitKey='X', deepLevel=3, fDEBU
     except StandardError, why:
         exit(8, "Error running program [%s]\n\n ....%s\n"  % (sys.argv[0], why) )
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return choice
 
 

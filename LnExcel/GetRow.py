@@ -9,7 +9,8 @@ def getRow(gv, sheet, row, wb, wantTupleDate, startCol=0):
     LN          = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entry   - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
+
 
     returnRow = []
     types,values = sheet.row_types(row),sheet.row_values(row)
@@ -49,6 +50,7 @@ def getRow(gv, sheet, row, wb, wantTupleDate, startCol=0):
 
             returnRow.append(value)
 
+        logger.debug('exiting - [called by:%s]' % (calledBy(1)))
         return returnRow[startCol:]
 
     except StandardError, why:
@@ -86,7 +88,7 @@ def excelFormat():
     # colOneUnitWidth = int(1*36.5*7)                     # Espansione di una unita' =~ 255.5 pixels
     # colsWidth = colBaseWidth + colOneUnitWidth*colWidth    # in pixels
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
 
 
 if __name__ == "__main__":

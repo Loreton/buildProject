@@ -20,7 +20,7 @@ def getDictPtr(gv, origDict, keyList="", fCREATE=False, fieldSep=';'):
     LN          = gv.LN
     logger      = gv.LN.LnLogger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
 
     if not type(origDict) == types.DictionaryType: return None
@@ -57,7 +57,7 @@ def getDictPtr(gv, origDict, keyList="", fCREATE=False, fieldSep=';'):
                 retPtrDict = None
                 break
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return retPtrDict
 
 
@@ -69,7 +69,7 @@ def getDictValue(gv, origDict, fldName, keyList=""):
     LN          = gv.LN
     logger      = gv.LN.LnLogger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
 
     wkDict = getDictPtr(gv, origDict, keyList=keyList, fCREATE=False)
@@ -80,7 +80,7 @@ def getDictValue(gv, origDict, fldName, keyList=""):
 
     logger.info('%s = %s' % (fldName, retVal))
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return retVal
 
 

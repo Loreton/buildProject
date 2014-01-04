@@ -54,7 +54,7 @@ def getPidCommandLineArgs(gv, PID, exitOnError=False):
 def getPIDsWinTL(gv, processName, str2Search=None):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(2)))
+    logger.debug('entered - [called by:%s]' % (calledBy(2)))
 
     if not processName.endswith('*'): processName += '*'
 
@@ -80,7 +80,7 @@ def getPIDsWin(gv, processName, str2Search=None):
     LN          = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(2)))
+    logger.debug('entered - [called by:%s]' % (calledBy(2)))
 
 
     if not processName.endswith('*'): processName += '*'
@@ -109,7 +109,7 @@ def getPidCLineWin(gv, processID):
     LN          = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(2)))
+    logger.debug('entered - [called by:%s]' % (calledBy(2)))
 
     CMD = '%s -iql %s' % (gv.PVEXE, pid)
     logger.info('Executing command: %s' % (CMD))
@@ -135,7 +135,7 @@ def getPidCLineWin(gv, processID):
 def getPIDsUnix(gv, processName, str2Search=None):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(2)))
+    logger.debug('entered - [called by:%s]' % (calledBy(2)))
 
     ps = subprocess.Popen("ps ax -o pid -o args ", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = ps.stdout.read()
@@ -154,7 +154,7 @@ def getPIDsUnix(gv, processName, str2Search=None):
             else:
                 PIDs.append(pid)
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return PIDs
 
 

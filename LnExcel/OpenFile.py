@@ -19,5 +19,5 @@ def open(gv, filename):
         Prj.exit(gv, 9000, "error reading file: %s [%s]" % (filename, why))
 
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return wb

@@ -16,7 +16,7 @@ def copyFile(gv, srcPATH=None, dstPATH=None, srcFile=None,  dstFile=None, create
     LN          = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     logger.debug( "srcPATH....: %s" % (srcPATH) )
     logger.debug( "srcFile....: %s" % (srcFile) )
@@ -68,7 +68,7 @@ def copyFile(gv, srcPATH=None, dstPATH=None, srcFile=None,  dstFile=None, create
             LN.sys.exit(gv, 9002, msg)
         return False
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return True
 
 

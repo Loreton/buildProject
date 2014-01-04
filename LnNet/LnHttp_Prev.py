@@ -19,7 +19,7 @@ def httpGet(gv, url, timeOUT=5.0, logger=None, type=None):
     LN          = gv.LN
     logger      = LN.LnLogger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     bRetVal = False
     sStatus = False
@@ -60,7 +60,7 @@ def httpGet(gv, url, timeOUT=5.0, logger=None, type=None):
             htmlPage = eval(htmlPage)
             # print types(htmlPage)
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return bRetVal, htmlPage
 
 def main():

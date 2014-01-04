@@ -11,7 +11,7 @@ def exit(gv, rcode, text, stackLevel=2):
     Prj         = gv.Prj
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     if isinstance(text, types.ListType):
         textList = text
@@ -52,14 +52,14 @@ def exit(gv, rcode, text, stackLevel=2):
         logger.info("#"*40)
 
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     sys.exit(rcode)
 
 
 def callerPrint(gv, deepLevel=1, rcode=0, BlankLINES=5, Indent="=     "):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     caller = inspect.stack()[deepLevel]
     programFile = caller[1]
@@ -91,4 +91,4 @@ def callerPrint(gv, deepLevel=1, rcode=0, BlankLINES=5, Indent="=     "):
         else:
             logger.error(line)
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))

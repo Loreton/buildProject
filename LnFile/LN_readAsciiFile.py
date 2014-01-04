@@ -11,7 +11,7 @@ import os
 def readAsciiFile(gv, fname, lineCmntStr=None, stripLine=True, exitOnError=False, oneLine=False):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     Row = []
 
@@ -34,7 +34,7 @@ def readAsciiFile(gv, fname, lineCmntStr=None, stripLine=True, exitOnError=False
         if exitOnError: exit(8, "ERROR reading File [%s]:\n       %s" % (fname, str(why)), stackLevel=4 )
 
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     if oneLine:
         text = '\n'.join(Row)
         return text

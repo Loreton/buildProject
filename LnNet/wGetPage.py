@@ -10,7 +10,7 @@ def wGetPage(gv, myHost, myURL, user=None, passw=None, JSON=False):
     Prj         = gv.Prj
     logger      = LN.LnLogger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
     # username, password = 'asdfds', 'asdfasd'
 
     try:
@@ -47,7 +47,7 @@ def wGetPage(gv, myHost, myURL, user=None, passw=None, JSON=False):
             Prj.exit(gv, 2011, strError)
 
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return htmlPage
 
 

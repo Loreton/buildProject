@@ -12,7 +12,7 @@ def createDir(gv, path, exitOnError=False):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
 
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     logger.info( "Creating directory: [%s]" % (path) )
 
@@ -31,6 +31,6 @@ def createDir(gv, path, exitOnError=False):
             Ln.sys.exit(9001, msg)
         return False
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return  True
 

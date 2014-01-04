@@ -56,11 +56,33 @@ def dictionaryToList(gv, dictID, MaxDeepLevel=99, dictLIST='Normal', Attrib=Fals
     dictLIST             = []
     fSET_END_SECTION    = False
     INSIDE_LIST         = False
+    counter = 0
     for line in lista:
         if line == '': continue
+        counter += 1
         (level, rest)  = LN.string.parseString(gv, line, '[', ']')
         level = int(level)                                      # convert unicode to integer
-        objType, rest = rest.split(' ', 1)
+        try:
+            objType, rest = rest.split(' ', 1)
+        except (StandardError, ValueError), why:
+            print "------------------- START ERROR ------------------------"
+            print "ERROR durante l'elaborazione del rest:"
+            print "counter-line.: %5d/%5d:" % (counter, len(lista))
+            print "Path.........:", Level[:level]
+
+            print "------------------- Before error line ------------------------"
+            for i in range(counter-30, counter):
+                print lista[i]
+            print
+            print "line.........:", line
+            print "rest.........:", rest
+            print
+            print "------------------- After error line ------------------------"
+            for i in range(counter, counter+30):
+                print lista[i]
+            print "------------------- END ERROR ------------------------"
+            # LN.dict.printDictionaryTree(gv, gv.MP3Dict, header="After FileSystem data [%s]" % calledBy(0), retCols='TV', lTAB=' '*4, console=True)
+
 
         line = line.strip()
         rest = rest.strip()

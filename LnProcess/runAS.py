@@ -36,7 +36,7 @@ def runASWin(gv, userName, command, argsList=[], PWAIT=True, stdOUTfile=None):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
     LN          = gv.LN
-    logger.info('entered - [called by:%s]' % (calledBy(2)))
+    logger.debug('entered - [called by:%s]' % (calledBy(2)))
 
     args = argsList
 
@@ -90,7 +90,7 @@ def runASWin(gv, userName, command, argsList=[], PWAIT=True, stdOUTfile=None):
     report_idsWin('finished ' + str(CMD))
     logger.info('result:%s' % result)
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
 
 
 
@@ -102,7 +102,7 @@ def runASUnix(gv, userName, command, argsList=[], PWAIT=True, stdOUTfile=None):
     global logger, calledBy
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(2)))
+    logger.debug('entered - [called by:%s]' % (calledBy(2)))
 
     args = argsList
 
@@ -165,7 +165,7 @@ def runASUnix(gv, userName, command, argsList=[], PWAIT=True, stdOUTfile=None):
     report_ids('finished ' + str(CMD))
     logger.info('result:%s' % result)
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
 
 
 
@@ -182,7 +182,7 @@ def demote(user_uid, user_gid):
         os.setuid(user_uid)
         report_ids('finished demotion')
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return result
 
 

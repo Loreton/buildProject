@@ -18,7 +18,7 @@ if platform.system().upper() != 'WINDOWS': import pwd
 def setUID(gv, user, exitOnError=False):
     logger   = gv.LN.logger
     calledBy = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     currUser = getpass.getuser()
     if user == currUser:
@@ -38,7 +38,7 @@ def setUID(gv, user, exitOnError=False):
             return 1
 
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return 0
 
 

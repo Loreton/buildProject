@@ -19,7 +19,7 @@ class LnStructure(): pass
 def runCommand(gv, command, argsList=[], exit=False):
     logger   = gv.LN.logger
     calledBy = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     CMD = command + ' ' + ' '.join(argsList)
 
@@ -41,7 +41,7 @@ def runCommand(gv, command, argsList=[], exit=False):
             print errMSG
             sys.exit(rCode)
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return rCode
 
 
@@ -55,7 +55,7 @@ def runCommand_New(gv, command, wkdir='.', argsList=[], PWAIT=0, stdOUTfile=Fals
 
     logger   = gv.LN.logger
     calledBy = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     CMD = command + ' ' + ' '.join(argsList)
     logger.info('executing command: [%s]' % (CMD))
@@ -147,7 +147,7 @@ def WaitProcess(procID, timeOut):
 def runCommand_3(gv, command, wkdir='.', argsList=[], exit=False):
     logger   = gv.LN.logger
     calledBy = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     CMD = command + ' ' + ' '.join(argsList)
 

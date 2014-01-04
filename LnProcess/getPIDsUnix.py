@@ -15,13 +15,13 @@ import subprocess
 def getPIDsUnix(gv, processName, str2Search=None):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     ps = subprocess.Popen("ps ax -o pid -o args ", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = ps.stdout.read()
     ps.stdout.close()
     ps.wait()
-    
+
 
     PIDs = []
     for line in output.split("\n"):
@@ -35,7 +35,7 @@ def getPIDsUnix(gv, processName, str2Search=None):
             else:
                 PIDs.append(pid)
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return PIDs
 
 

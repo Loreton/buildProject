@@ -12,7 +12,7 @@ def copyDir(gv, srcPATH, dstPATH, subDirs=True, exitOnError=False):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
 
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     if not os.path.isdir(srcPATH):
         logger.error( "Source directory doesn't exists [%s]" % (srcPATH) )
@@ -29,7 +29,7 @@ def copyDir(gv, srcPATH, dstPATH, subDirs=True, exitOnError=False):
                 Ln.sys.exit(9001, msg)
             return False
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return  True
 
 

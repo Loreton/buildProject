@@ -45,8 +45,8 @@ import types
 # - L'idea è quella di stampare prima tutti i valori e poi andare all'interno dei dict
 def getDictionaryTree(gv, dictID, MaxDeepLevel=999, level=0, retCols='LTV'):
     logger      = gv.LN.logger
-    # calledBy    = gv.LN.sys.calledBy
-    # logger.debug('entered - [called by:%s]' % (calledBy(1)))
+    calledBy    = gv.LN.sys.calledBy
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
 
     lista = []
@@ -177,6 +177,7 @@ def getDictionaryTree(gv, dictID, MaxDeepLevel=999, level=0, retCols='LTV'):
             lista.extend(newLista)
             lista.append('')
 
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return lista
 
 
@@ -184,9 +185,15 @@ def getDictionaryTree(gv, dictID, MaxDeepLevel=999, level=0, retCols='LTV'):
 
 def prepareListValueLine(line, retCols, level):
     newLine = ''
-    # print 'line...........', line
 
     valueTypeStr = str(type(line)).split("'")[1]
+
+    if isinstance(line, types.StringType):
+        if line == ': ]':
+            valueTypeStr = 'endOfLIST'
+        elif line.endswith(': ['):
+            valueTypeStr = 'startOfLIST'
+
     if 'T' in retCols:
         str(type(line)).split("'")[1]
         newLine = "%-8s %s" % (valueTypeStr, newLine)        # aggiungiamo il TYPE
@@ -194,5 +201,4 @@ def prepareListValueLine(line, retCols, level):
         newLine = "[%2d] %s"   % (level, newLine)        # aggiungiamo il LEVEL
 
     newLine = "%-54s %s" % (newLine, line)
-    # print 'newLine........', newLine
     return newLine

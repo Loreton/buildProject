@@ -23,7 +23,7 @@ def runProcess(gv, command, argsList=[], PWAIT=True, timeOut=None, stdOUTfile=Fa
     LN          = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     retVal = LnStructure()
     retVal.err = None
@@ -72,7 +72,7 @@ def runProcess(gv, command, argsList=[], PWAIT=True, timeOut=None, stdOUTfile=Fa
     else:
         retVal.output = ps
         retVal.err = ''
-    
+
     logger.debug("retVal1.output       = %s" % (retVal.output))
     logger.debug("retVal1.errMsg       = %s" % (retVal.err))
 
@@ -90,7 +90,7 @@ def runProcess(gv, command, argsList=[], PWAIT=True, timeOut=None, stdOUTfile=Fa
     logger.debug("retVal2.output       = %s" % (retVal.output))
     logger.debug("retVal2.errMsg       = %s" % (retVal.err))
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return  retVal
 
 
@@ -107,7 +107,7 @@ def runProcess(gv, command, argsList=[], PWAIT=True, timeOut=None, stdOUTfile=Fa
 def runProcess_Prev(gv, command, argsList=[], PWAIT=True, stdOUTfile=False):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     retVal = LnStructure()
 
@@ -151,7 +151,7 @@ def runProcess_Prev(gv, command, argsList=[], PWAIT=True, stdOUTfile=False):
     logger.debug("retVal2.output       = %s" % (retVal.output))
     logger.debug("retVal2.errMsg       = %s" % (retVal.err))
 
-    logger.info('exiting - [called by:%s]' % (calledBy(1)))
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return  retVal
 
 '''
