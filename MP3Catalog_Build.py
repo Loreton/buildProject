@@ -216,7 +216,7 @@ if __name__ == "__main__":
         newFname = mySEP.join([tarOutDir, "%s_%s.tgz" % (fileName, now)])
         os.rename(tarOutFile, newFname)
 
-    EXcludeFromTAR = ['*.cfgc', '*/Exploded*', '*/.git*', 'LICENSE', 'README.md', '*.psproj']
+    EXcludeFromTAR = ['*.cfgc', '*/Exploded*', '*/.git*', 'LICENSE', 'README.md', '*.psproj', '*/data/*']
     excludePattern = ''
     for pattern in EXcludeFromTAR:
         excludePattern += ' --exclude=%s' % (pattern)
