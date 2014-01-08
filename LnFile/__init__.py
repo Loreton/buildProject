@@ -12,5 +12,6 @@ from  LN_writeFileOneString import writeFileOneString
 from  LN_getFullPath        import getFullPath
 from  LN_CopyFile           import copyFile
 from  LN_CopyDir            import copyDir
-from  LN_CreateDir            import createDir
-from  LN_MakeDirs            import makeDirs
+from  LN_CreateDir          import createDir
+from  LN_MakeDirs           import makeDirs
+from  LN_Zip                import LnZipDir as zipDir
