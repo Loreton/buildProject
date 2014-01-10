@@ -1,17 +1,19 @@
 # outer __init__.py
 # -*- coding: iso-8859-1 -*-
 
-from  LN_ReadIniFile        import readIniConfigFile as readIniConfigFile
-from  LN_ReadIniFile_New    import readIniConfigFile_New as readIniConfigFile_New
-from  LN_DirList            import dirList
-from  LN_WriteFile          import writeFile
-from  LN_readBinaryFile     import readBinaryFile
-from  LN_readAsciiFile      import readAsciiFile  as readFile
-from  LN_readAsciiFile      import readAsciiFile
-from  LN_writeFileOneString import writeFileOneString
-from  LN_getFullPath        import getFullPath
-from  LN_CopyFile           import copyFile
-from  LN_CopyDir            import copyDir
-from  LN_CreateDir          import createDir
-from  LN_MakeDirs           import makeDirs
-from  LN_Zip                import LnZipDir as zipDir
+from  ReadIniFile        import readIniConfigFile as readIniConfigFile
+from  ReadIniFile_New    import readIniConfigFile_New as readIniConfigFile_New
+from  DirList            import dirList
+from  WriteFile          import writeFile
+from  ReadBinaryFile     import readBinaryFile
+from  ReadAsciiFile      import readAsciiFile  as readFile
+from  ReadAsciiFile      import readAsciiFile
+from  WriteFileOneString import writeFileOneString
+from  GetFullPath        import getFullPath
+from  CopyFile           import copyFile
+from  CopyDir            import copyDir
+from  CreateDir          import createDir
+from  MakeDirs           import makeDirs
+from  Zip                import LnZipDir as zipDir
+from  DriveFreeSpace     import driveFreeSpace
+from  GetFolderSize      import getFolderSize
