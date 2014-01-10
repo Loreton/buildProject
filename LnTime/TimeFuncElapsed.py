@@ -9,16 +9,20 @@
 # * LnSys.timeFuncElapsed(partial(Action3, "Ciao1", param2="Ciao2"), fPRINT=True )
 # * LnSys.timeFuncElapsed(partial(funcName, "Ciao1", param2="Ciao2"), fPRINT=True )
 # *********************************************************************
-import datetime as DT
+import sys
 import time
 from functools import partial
-import  functools
+import inspect
+
 
 # solo per test
 def Action3(param1, param2=''):
     print "sono Action3 %s - %s" % (param1, param2)
 
+
 def timeFuncElapsed(funcToCall, fPRINT=True):
+    thisFuncName = inspect.stack()[0][3]
+    callingFunction = str(funcToCall.func).split()[1]
 
     startTimeSecs   = getNow()
     retValue        = funcToCall()
@@ -26,6 +30,9 @@ def timeFuncElapsed(funcToCall, fPRINT=True):
     # print endTimeSecs-startTimeSecs
 
     if fPRINT:
+        print ("* %s" % ("-"*40) )
+        # print ("* - %s" % (sys._getframe().f_code.co_name) )
+        print ("* - function: %s" % (callingFunction))
         print ("* %s" % ("-"*40) )
         # print '*     Start   time: %20s' % (convert(secs=startTimeSecs) )
         print '*     Start   time: %20s' % (convert(secs=startTimeSecs, out="STR") )
