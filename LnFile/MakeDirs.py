@@ -9,7 +9,7 @@ def makeDirs(gv, path, exitOnError=False):
     Prj = gv.Prj
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.debug('entered - [called by:%s]' % (calledBy(1)))
+    logger.info('entered - [called by:%s]' % (calledBy(1)))
 
     bError = True
 

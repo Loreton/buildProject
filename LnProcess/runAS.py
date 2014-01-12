@@ -36,7 +36,7 @@ def runASWin(gv, userName, command, argsList=[], PWAIT=True, stdOUTfile=None):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
     LN          = gv.LN
-    logger.debug('entered - [called by:%s]' % (calledBy(2)))
+    logger.info('entered - [called by:%s]' % (calledBy(2)))
 
     args = argsList
 
@@ -102,7 +102,7 @@ def runASUnix(gv, userName, command, argsList=[], PWAIT=True, stdOUTfile=None):
     global logger, calledBy
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.debug('entered - [called by:%s]' % (calledBy(2)))
+    logger.info('entered - [called by:%s]' % (calledBy(2)))
 
     args = argsList
 
@@ -174,7 +174,7 @@ def runASUnix(gv, userName, command, argsList=[], PWAIT=True, stdOUTfile=None):
 # =   provvede a creare un oggetto da passare al preexec_fn
 # ====================================================================================
 def demote(user_uid, user_gid):
-    logger.debug('entered - [called by:%s]' % (calledBy(1)))
+    logger.info('entered - [called by:%s]' % (calledBy(1)))
 
     def result():
         report_ids('starting demotion')

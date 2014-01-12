@@ -12,7 +12,7 @@ def getFullPath(gv, filename, pathEnv='PATH', exitOnError=False):
     LN          = gv.LN
     logger      = LN.logger
     calledBy    = LN.sys.calledBy
-    logger.debug('entered - [called by:%s]' % (calledBy(1)))
+    logger.info('entered - [called by:%s]' % (calledBy(1)))
     # i+=1; print '................', str(i)*20
 
     if not os.path.isfile(filename):

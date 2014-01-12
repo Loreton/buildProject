@@ -25,7 +25,7 @@ def printDictionaryTree(gv, dictID, header=None, MaxDeepLevel=999, level=0, retC
     LN      = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.debug('entered - [called by:%s]' % (calledBy(1)))
+    logger.info('entered - [called by:%s]' % (calledBy(1)))
 
     lista = LN.dict.getDictionaryTree(gv, dictID, MaxDeepLevel=MaxDeepLevel, level=level, retCols=retCols)
 

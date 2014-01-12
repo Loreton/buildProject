@@ -46,7 +46,7 @@ import types
 def getDictionaryTree(gv, dictID, MaxDeepLevel=999, level=0, retCols='LTV'):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.debug('entered - [called by:%s]' % (calledBy(1)))
+    logger.info('entered - [called by:%s]' % (calledBy(1)))
 
 
     lista = []

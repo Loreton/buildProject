@@ -14,7 +14,7 @@ def dictionaryToList(gv, dictID, MaxDeepLevel=99):
     LN      = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.debug('entered - [called by:%s]' % (calledBy(1)))
+    logger.info('entered - [called by:%s]' % (calledBy(1)))
 
         # --------------------------------------------------------
         # - Ritorna una lista formattata di tutto il Dictionary

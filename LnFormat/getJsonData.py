@@ -14,7 +14,7 @@ def getJsonData(gv, inpFname):
     LN          = gv.LN
     logger      = LN.LnLogger
     calledBy    = gv.LN.sys.calledBy
-    logger.debug('entered - [called by:%s]' % (calledBy(1)))
+    logger.info('entered - [called by:%s]' % (calledBy(1)))
 
     JsonDict = None
 

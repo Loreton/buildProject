@@ -19,7 +19,7 @@ def getFreeSpace(gv, dir, unit=''):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
 
-    logger.debug('entered - [called by:%s]' % (calledBy(1)))
+    logger.info('entered - [called by:%s]' % (calledBy(1)))
 
     if OpSys == 'Windows':
         drive = os.path.splitdrive(dir)[0] + os.sep

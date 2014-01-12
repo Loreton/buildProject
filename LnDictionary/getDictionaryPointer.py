@@ -20,7 +20,7 @@ def getDictPtr(gv, origDict, keyList="", fCREATE=False, fieldSep=';'):
     LN          = gv.LN
     logger      = gv.LN.LnLogger
     calledBy    = gv.LN.sys.calledBy
-    logger.debug('entered - [called by:%s]' % (calledBy(1)))
+    logger.info('entered - [called by:%s]' % (calledBy(1)))
 
 
     if not type(origDict) == types.DictionaryType: return None
@@ -69,7 +69,7 @@ def getDictValue(gv, origDict, fldName, keyList=""):
     LN          = gv.LN
     logger      = gv.LN.LnLogger
     calledBy    = gv.LN.sys.calledBy
-    logger.debug('entered - [called by:%s]' % (calledBy(1)))
+    logger.info('entered - [called by:%s]' % (calledBy(1)))
 
 
     wkDict = getDictPtr(gv, origDict, keyList=keyList, fCREATE=False)

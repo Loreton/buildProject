@@ -17,7 +17,7 @@ def getPIDsWin(gv, procName, str2Search=None):
     LN          = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.debug('entered - [called by:%s]' % (calledBy(1)))
+    logger.info('entered - [called by:%s]' % (calledBy(1)))
 
     processNAME = procName
 

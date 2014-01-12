@@ -9,7 +9,7 @@ def getRow(gv, sheet, row, wb, wantTupleDate, startCol=0):
     LN          = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.debug('entered - [called by:%s]' % (calledBy(1)))
+    logger.info('entered - [called by:%s]' % (calledBy(1)))
 
 
     returnRow = []
