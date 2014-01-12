@@ -151,6 +151,12 @@ def setConsoleLevel(level=None):
 
 
 
+def console(text):
+    msg = "%-35s - %s" % (calledBy(1), text)
+    print "LOG    - ", text
+    if gRootLogger:
+        gRootLogger.info(msg)
+
 def info(text):
     msg = "%-35s - %s" % (calledBy(1), text)
     if gRootLogger:

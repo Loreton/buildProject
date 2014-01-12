@@ -10,7 +10,7 @@ import types
 # # Ritorna una lista di liste del dictionary di input
 # # 2014-01-03  - Al momento supporta solo MP3Catalog dictionary
 # #########################################################################################
-def dictionaryToList(gv, dictID, MaxDeepLevel=99, dictLIST='Normal', Attrib=False):
+def dictionaryToList(gv, dictID, MaxDeepLevel=99):
     LN      = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy

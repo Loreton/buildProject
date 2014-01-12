@@ -6,7 +6,7 @@ import os
 # =================================================================
 # - get Folder Size
 # =================================================================
-def getDirSize(folder):
+def getFolderSize(gv, folder):
     LN          = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy

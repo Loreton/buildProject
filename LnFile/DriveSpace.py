@@ -14,12 +14,14 @@ if OpSys == 'Windows':    import win32file
 # = Given a directory, return the free space
 # = (mega Bytes) on that drive.
 # ============================================
-def getFreeSpace(gv, dir, unit=''):
+def driveSpace(gv, dir, unit=''):
     LN          = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
 
     logger.debug('entered - [called by:%s]' % (calledBy(1)))
+
+    retValue = 0
 
     if OpSys == 'Windows':
         drive = os.path.splitdrive(dir)[0] + os.sep
@@ -35,14 +37,14 @@ def getFreeSpace(gv, dir, unit=''):
     KBytes = Bytes/1024.0
     MBytes = KBytes/1024.0
     GBytes = MBytes/1024.0
-    if   unit == 'KB': return KBytes
-    elif unit == 'MB': return MBytes
-    elif unit == 'GB': return GBytes
-    else:              return Bytes
+    if   unit == 'KB': retValue = KBytes
+    elif unit == 'MB': retValue = MBytes
+    elif unit == 'GB': retValue = GBytes
+    else:              retValue = Bytes
 
 
     logger.debug('exiting - [called by:%s]' % (calledBy(1)))
-
+    return retValue
 
 # ============================================
 # = Given a directory, return the free space

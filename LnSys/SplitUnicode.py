@@ -3,7 +3,9 @@
 
 
 def splitUnicode(gv, sourceStr, sep):
-    logger      = gv.LN.logger
+    logger   = gv.LN.logger
+    calledBy = gv.LN.sys.calledBy
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     logger.debug("Source string: <%s>" % (sourceStr) )
 
@@ -19,7 +21,7 @@ def splitUnicode(gv, sourceStr, sep):
                 # u = str(u)   # integer or long datatype
         logger.debug("Token: <%s>" % (token[i]) )
 
-
+    logger.debug('exiting - [called by:%s]' % (calledBy(1)))
     return token
 
 
