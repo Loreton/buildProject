@@ -14,7 +14,7 @@ def stripQuote(gv, inpString):
     LN          = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     fDEDUG = False
     if fDEDUG: MyLogger.debug("inpString: len=%4d |%s|" % (len(inpString), inpString) )

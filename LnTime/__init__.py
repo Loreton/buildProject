@@ -3,5 +3,5 @@
 
 
 from TimeConvert        import timeConvert      as convert
-from TimeGetNow         import timeGetNow       as getNow
+from TimeGetNow         import timeGetNow       as now
 from TimeFuncElapsed    import timeFuncElapsed  as funcElapsed

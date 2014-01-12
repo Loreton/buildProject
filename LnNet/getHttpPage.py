@@ -20,7 +20,7 @@ def getHttpPage(gv, myURL, myURL_Location, authTYPE=None, user=None, passw=None,
     Prj         = gv.Prj
     logger      = LN.LnLogger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     if not myURL.startswith('http://'):
         myURL = 'http://' + myURL

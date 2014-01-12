@@ -19,7 +19,7 @@ def driveSpace(gv, dir, unit=''):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
 
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     retValue = 0
 

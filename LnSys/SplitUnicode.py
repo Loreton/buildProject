@@ -5,7 +5,7 @@
 def splitUnicode(gv, sourceStr, sep):
     logger   = gv.LN.logger
     calledBy = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('Entered - [called by:%s]' % (calledBy(1))) # Non mettere .info
 
     logger.debug("Source string: <%s>" % (sourceStr) )
 

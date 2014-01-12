@@ -9,7 +9,7 @@ def getRow(gv, sheet, row, wb, wantTupleDate, startCol=0):
     LN          = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('Entered - [called by:%s]' % (calledBy(1)))
 
 
     returnRow = []
@@ -50,6 +50,7 @@ def getRow(gv, sheet, row, wb, wantTupleDate, startCol=0):
 
             returnRow.append(value)
 
+        # logger.debug('returning - %s' % (returnRow[startCol:startCol+5]) )
         logger.debug('exiting - [called by:%s]' % (calledBy(1)))
         return returnRow[startCol:]
 

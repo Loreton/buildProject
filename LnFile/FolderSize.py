@@ -11,7 +11,7 @@ def getFolderSize(gv, folder):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
 
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     folder_size = 0
     for (path, dirs, files) in os.walk(folder):

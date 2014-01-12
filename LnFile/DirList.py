@@ -28,7 +28,7 @@ def dirList(gv, dirName, pattern='*', what='FDS', getFullPath=True, deepFileIndi
     fDEBUG      = False # essendo ricorsivo è meglio controllare il logger manualmente altrimenti scrive moltissimo
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    if fDEBUG == True: logger.info('entered - [called by:%s]' % (calledBy(1)))
+    if fDEBUG == True: logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
     fileList    = []
     MaxRCODE    = 0
@@ -103,7 +103,7 @@ def dirList(gv, dirName, pattern='*', what='FDS', getFullPath=True, deepFileIndi
 def dirList_OK(gv, dirName, pattern='*', getFullPath=False):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
-    logger.info('entered - [called by:%s]' % (calledBy(1)))
+    logger.debug('entered - [called by:%s]' % (calledBy(1)))
     pColor      = gv.LN.sys.colors()
 
     fileList = []
