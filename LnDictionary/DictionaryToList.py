@@ -104,7 +104,8 @@ def dictionaryToList(gv, dictID, MaxDeepLevel=99):
             Level[level] = rest
 
         elif objType == 'list':
-            Level[level] = rest.split(': [')[0]
+            stringa = rest.split(': [')[0]
+            Level[level] = stringa.strip()
             INSIDE_LIST = True
             currList = []
         else:
