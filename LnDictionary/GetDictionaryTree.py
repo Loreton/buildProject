@@ -140,6 +140,7 @@ def getDictionaryTree(gv, dictID, MaxDeepLevel=999, level=0, retCols='LTV'):
             elif valueType == types.BooleanType or\
                  valueType == types.NoneType or\
                  valueType == types.IntType or\
+                 valueType == types.LongType or\
                  valueType == types.FloatType or\
                  valueTypeStr == "datetime.date":
                 newLine = "%-50s: %s" % (newLine.rstrip(), val)

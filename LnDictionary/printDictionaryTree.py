@@ -37,13 +37,18 @@ def printDictionaryTree(gv, dictID, header=None, MaxDeepLevel=999, level=0, retC
         logger.info("%s%s" % (lTAB, line) )
 
     if console:
+        COLOR = LN.cBWH
+        COLOR = LN.cWHITE + LN.HI.BRIGHT
+        COLOR = LN.cMAGENTA
+        COLOR = LN.cCYAN
+
         if header:
             print
-            print lTAB + "*"*60
-            print lTAB + "*     %s" % (header)
-            print lTAB + "*"*60
+            print lTAB + COLOR + "*"*60
+            print lTAB + COLOR + "*     %s" % (header)
+            print lTAB + COLOR + "*"*60
         for line in lista:
-            print "%s%s" % (lTAB, line)
+            print COLOR + "%s%s" % (lTAB, line)
 
 
 
