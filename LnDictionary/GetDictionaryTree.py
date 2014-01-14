@@ -43,7 +43,7 @@ import types
 # -         lista = getDictionaryTree_Prev(CfgDict)
 # #########################################################################################
 # - L'idea è quella di stampare prima tutti i valori e poi andare all'interno dei dict
-def getDictionaryTree(gv, dictID, MaxDeepLevel=999, level=0, retCols='LTV'):
+def getDictionaryTree(gv, dictID, MaxDeepLevel=999, level=0, retCols='LTV', listInLine=5):
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
     logger.debug('entered - [called by:%s]' % (calledBy(1)))
@@ -109,11 +109,11 @@ def getDictionaryTree(gv, dictID, MaxDeepLevel=999, level=0, retCols='LTV'):
 
 
             elif valueType == types.ListType:
-                if len(val) == 0:
-                    newLine = "%-50s: []" % (newLine.rstrip())
-                    lista.append(newLine)
-                elif len(val) == 1:
-                    newLine = "%-50s: [%s]" % (newLine.rstrip(), val[0])
+                if len(val) <= listInLine:                                      # scriviamo la lista INLINE e non su righe diverse.
+                    newLine = "%-50s: [%-10s" % (newLine.rstrip(), val[0])      # Scrivi anche il primo valore (per allinearlo)
+                    for item in val[1:]:                                        # Scrivi gli altri items
+                        newLine += " %5s" % (item)
+                    newLine += " ]"
                     lista.append(newLine)
                 else:
                     lista.append("%-50s: [" % (newLine.rstrip()) )             # Apertura LIST
