@@ -3,6 +3,9 @@
 import sys
 sys.dont_write_bytecode = True
 
+import platform
+OpSys        = platform.system()
+
 # -----------------------------------------------------------------------------------------------------------------------
 # Type 1
 #     - punto a Ln.logger.LnLogger.function()   se nel prossimo __init__ non metto nulla
@@ -16,8 +19,10 @@ import LnFile                   as file
 import LnProcess                as proc
 import LnString                 as string
 import LnFormat                 as fmt
-import LnExcel                  as excel
 import LnTime                   as time
+
+if OpSys == 'Windows':
+    import LnExcel                  as excel
 
 # =========================================================================
 # Fore:  BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, RESET.
