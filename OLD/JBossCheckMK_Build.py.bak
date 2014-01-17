@@ -6,9 +6,8 @@ import subprocess
 import sys, os
 import shutil
 import textwrap
-import time, zipfile
+import time
 
-import Functions as LnFuncs
 
 # ###################################################################################################################
 # ###################################################################################################################
@@ -91,16 +90,7 @@ def runCommand(command, wkdir, argsList=[], exit=False):
 
 
 
-import stat
-def LnRmTree(topDir):
-    for root, dirs, files in os.walk(topDir, topdown=False):
-        for name in files:
-            filename = os.path.join(root, name)
-            os.chmod(filename, stat.S_IWUSR)
-            os.remove(filename)
-        for name in dirs:
-            os.rmdir(os.path.join(root, name))
-    os.rmdir(topDir)
+
 
 ################################################################################
 # - M A I N
@@ -136,9 +126,11 @@ if __name__ == "__main__":
     if os.path.isdir(workingDIR):
         if ACTION == '--GO':
             print "removing directory tree [%s]" % (workingDIR)
-            LnRmTree(workingDIR)
+            shutil.rmtree(workingDIR, ignore_errors=True)
         else:
             print "directory tree [%s] would be removed." % (workingDIR)
+
+
 
     print textwrap.dedent("""\
 
@@ -148,6 +140,10 @@ if __name__ == "__main__":
         """)
     sourceDIR       = mySEP.join([PyProjectDIR, PRJ_NAME])
     destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME])
+
+    # print sourceDIR
+    # print destDIR
+    # sys.exit()
     copyTree(sourceDIR, destDIR)
 
 
@@ -163,25 +159,28 @@ if __name__ == "__main__":
     copyTree(LnPackageDIR, destDIR)
 
 
-
-
     print textwrap.dedent("""\
 
             # =================================================
             # = Creating zipPackage
             # =================================================
         """)
-    sourceDIR   = "%s/build/WORKing/%s/SOURCE" % (PyProjectDIR, PRJ_PKGNAME)
-    zipName     = "%s/%s/bin/%s.zip" % (workingDIR, PRJ_PKGNAME, PRJ_PKGNAME)
-    print "creating zipFile:", zipName
-    print "  with directory:", sourceDIR
-    excludePattern = ['.git' + os.sep]
-    includePattern = ['*.py']
+    WIN = True
+    if WIN == True:
+        ZIPCMD  =   "PKZIP25.EXE"
+        ZIPOPTS =   "-add=all  -dir=current -excl=*.pyc -incl=*.py -level=6 -zip=new -attr=all"
+    else:
+        ZIPCMD    =   "zip"
+        ZIPOPTS   =   "-f  -x*.pyc -i*.py -1 -o -r"
+
+    zipDir      = "%s/%s/SOURCE" % (workingDIR, PRJ_PKGNAME)
+    zipName     = workingDIR + "/%s/bin/%s.zip" % (PRJ_PKGNAME, PRJ_PKGNAME)
+
+    ZIP_CMD     = '%s %s "%s" "%s/*.*"' % (ZIPCMD, ZIPOPTS, zipName, zipDir)
+
+    print "Executing...:", ZIP_CMD
     if ACTION == '--GO':
-        myZip = LnFuncs.LnZip.LnZipClass()
-        myZip.open(zipName)
-        myZip.addFolderToZip(sourceDIR, include=includePattern, exclude=excludePattern, emptyDir=False, hiddenDir=False)
-        myZip.close()
+        runCommand(ZIP_CMD, wkdir=zipDir)
 
 
 
@@ -191,12 +190,12 @@ if __name__ == "__main__":
             # = Removing SOURCE direcotry (before creating TAR
             # =================================================
         """)
-        appoDir  = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE" ])
     if ACTION == '--GO':
+        appoDir  = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE" ])
         print "removing directory tree [%s]" % (appoDir)
-        LnRmTree(appoDir)
+        shutil.rmtree(appoDir, ignore_errors=True)
     else:
-        print "directory tree [%s] would be removed." % (appoDir)
+        print "directory tree [%s] would be removed." % (workingDIR)
 
 
     print textwrap.dedent("""\
@@ -216,12 +215,7 @@ if __name__ == "__main__":
         newFname = mySEP.join([tarOutDir, "%s_%s.tgz" % (fileName, now)])
         os.rename(tarOutFile, newFname)
 
-    EXcludeFromTAR = ['*.cfgc', '*/Exploded*', '*/.git*', 'LICENSE', 'README.md', '*.psproj', '*/data/*']
-    excludePattern = ''
-    for pattern in EXcludeFromTAR:
-        excludePattern += ' --exclude=%s' % (pattern)
-
-    TAR_CMD = "tar %s -cvzf ../%s.tgz *" % (excludePattern, fileName)
+    TAR_CMD = "tar --exclude=*.cfgc --exclude=*/Exploded* -cvzf ../%s.tgz *" % (fileName)
     print "Executing...:", TAR_CMD
     if ACTION == '--GO':
         runCommand(TAR_CMD, wkdir=tarInputDir)
