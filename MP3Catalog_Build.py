@@ -1,9 +1,9 @@
 #!/usr/bin/python
 # -*- coding: iso-8859-1 -*-
 
+import sys, os; sys.dont_write_bytecode = True
 
 import subprocess
-import sys, os
 import shutil
 import textwrap
 import time, zipfile

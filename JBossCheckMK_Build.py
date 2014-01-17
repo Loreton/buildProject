@@ -1,9 +1,8 @@
 #!/usr/bin/python
 # -*- coding: iso-8859-1 -*-
-
+import sys, os; sys.dont_write_bytecode = True
 
 import subprocess
-import sys, os
 import shutil
 import textwrap
 import time, zipfile
@@ -191,7 +190,7 @@ if __name__ == "__main__":
             # = Removing SOURCE direcotry (before creating TAR
             # =================================================
         """)
-        appoDir  = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE" ])
+    appoDir  = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE" ])
     if ACTION == '--GO':
         print "removing directory tree [%s]" % (appoDir)
         LnRmTree(appoDir)
