@@ -1,10 +1,9 @@
 #!/usr/bin/python
 # -*- coding: iso-8859-1 -*-
-import sys
-sys.dont_write_bytecode = True
+import sys, os; sys.dont_write_bytecode = True
 
 import platform
-OpSys        = platform.system()
+OpSys = platform.system()
 
 # -----------------------------------------------------------------------------------------------------------------------
 # Type 1
