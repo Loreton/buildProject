@@ -24,15 +24,17 @@ class LnZipClass:
         zipID = self.zipID
         # relroot = os.path.abspath(os.path.join(source_dir, "..")) #  questo se vogliamo andare un path sopra
         relroot = os.path.abspath(source_dir)
+        # print 'zip............', source_dir
 
         for root, dirs, files in os.walk(source_dir):
+            # print 'zip............1', root, dirs, files
 
             if os.path.basename(root)[0] == '.' and not hiddenDir: continue                               #skip hidden directories
             if emptyDir: zipID.write(root, os.path.relpath(root, relroot))              # add directory (needed for empty dirs)
 
             for fName in files:
                 fullPathName = os.path.join(root, fName)
-                fullPathName = os.path.join(root, fName)
+                # print fullPathName
 
                     # Exclude pattern (search pattern in file name)
                 isValid = True

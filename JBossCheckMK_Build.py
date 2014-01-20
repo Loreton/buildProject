@@ -11,27 +11,47 @@ import Functions as LnFuncs
 
 # ###################################################################################################################
 # ###################################################################################################################
-def copyTree(sourceDIR, destDIR):
-    print "\n"
-    print textwrap.dedent("""\
-        Copy directory tree [%s]
-                            [%s]
-        """ % (sourceDIR, destDIR))
 
-    if ACTION == '--GO':
-        try:
-            shutil.copytree(sourceDIR, destDIR)                 # La destDIR non deve esistere
-        except (IOError, os.error), why:
-            print textwrap.dedent("""\
-                ERRORR copying directory tree [%s]
-                                              [%s]
-                Reason: %s
-                """ % (sourceDIR, destDIR, str(why)))
-            sys.exit(3)
+# from shutil import copytree, ignore_patterns
+# from shutil import *
+def copyTree(src, dst, symlinks=False, ignore=None):
+    names = os.listdir(src)
+    if ignore is not None:
+        ignored_names = ignore(src, names)
     else:
-        print "-----  was a DRY-RUN"
+        ignored_names = set()
 
-
+    os.makedirs(dst)
+    errors = []
+    for name in names:
+        if name in ignored_names:
+            continue
+        srcname = os.path.join(src, name)
+        dstname = os.path.join(dst, name)
+        try:
+            if symlinks and os.path.islink(srcname):
+                linkto = os.readlink(srcname)
+                os.symlink(linkto, dstname)
+            elif os.path.isdir(srcname):
+                shutil.copytree(srcname, dstname, symlinks, ignore)
+            else:
+                shutil.copy2(srcname, dstname)
+            # XXX What about devices, sockets etc.?
+        except (IOError, os.error) as why:
+            errors.append((srcname, dstname, str(why)))
+        # catch the Error from the recursive copytree so that we can
+        # continue with other files
+        except shutil.Error as err:
+            errors.extend(err.args[0])
+    try:
+        shutil.copystat(src, dst)
+    except shutil.WindowsError:
+        # can't copy file access times on Windows
+        pass
+    except OSError as why:
+        errors.extend((src, dst, str(why)))
+    if errors:
+        raise shutil.Error(errors)
 
 # ###################################################################################################################
 # ###################################################################################################################
@@ -90,15 +110,20 @@ def runCommand(command, wkdir, argsList=[], exit=False):
 
 
 
-import stat
+import stat, shutil
 def LnRmTree(topDir):
+    shutil.rmtree(topDir)
+    return
     for root, dirs, files in os.walk(topDir, topdown=False):
         for name in files:
             filename = os.path.join(root, name)
+            print "removing File:", filename
             os.chmod(filename, stat.S_IWUSR)
             os.remove(filename)
         for name in dirs:
-            os.rmdir(os.path.join(root, name))
+            dirname = os.path.join(root, name)
+            os.rmdir(dirname)
+            print "removing dir:", dirname
     os.rmdir(topDir)
 
 ################################################################################
@@ -147,7 +172,7 @@ if __name__ == "__main__":
         """)
     sourceDIR       = mySEP.join([PyProjectDIR, PRJ_NAME])
     destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME])
-    copyTree(sourceDIR, destDIR)
+    copyTree(sourceDIR, destDIR, ignore=shutil.ignore_patterns('.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '_APPO*' ) )
 
 
     print textwrap.dedent("""\
@@ -159,8 +184,7 @@ if __name__ == "__main__":
     LN_PKGNAME      = "LnFunctions"                                                # Nome del modulo che deve essere trasformato in pacchetto
     LnPackageDIR    = mySEP.join([PyProjectDIR, LN_PKGNAME])
     destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE",LN_PKGNAME ])
-    copyTree(LnPackageDIR, destDIR)
-
+    copyTree(LnPackageDIR, destDIR, ignore=shutil.ignore_patterns('.git*', 'tmp*' ) )
 
 
 
@@ -170,7 +194,7 @@ if __name__ == "__main__":
             # = Creating zipPackage
             # =================================================
         """)
-    sourceDIR   = "%s/build/WORKing/%s/SOURCE" % (PyProjectDIR, PRJ_PKGNAME)
+    sourceDIR   = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE" ])
     zipName     = "%s/%s/bin/%s.zip" % (workingDIR, PRJ_PKGNAME, PRJ_PKGNAME)
     print "creating zipFile:", zipName
     print "  with directory:", sourceDIR
@@ -182,7 +206,7 @@ if __name__ == "__main__":
         myZip.addFolderToZip(sourceDIR, include=includePattern, exclude=excludePattern, emptyDir=False, hiddenDir=False)
         myZip.close()
 
-
+    # sys.exit()
 
     print textwrap.dedent("""\
 
