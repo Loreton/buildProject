@@ -35,5 +35,4 @@ nosetests.xml
 .project
 .pydevproject
 
-# Excel data
-*.xls
+OUTPUT_BUILD_DIR

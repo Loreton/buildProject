@@ -115,7 +115,7 @@ if __name__ == "__main__":
     scriptBase      = thisModuleDIR
     subDirsList     = thisModuleDIR.split(mySEP)
     PyProjectDIR     = mySEP.join(subDirsList[:-1])
-    buildDIR        = mySEP.join([PyProjectDIR, 'build'])
+    buildDIR        = mySEP.join([scriptBase, 'OUTPUT_BUILD_DIR'])
     workingDIR      = mySEP.join([buildDIR, "Working"])                             # Working Directory
     PRJ_NAME        = "JBossCheck_MK"                          # Nome del Progetto e della dir con i sorgenti
     PRJ_PKGNAME     = "JBossCheck_MK"                          # Nome della root directory all'interno del tar e nome del tar.
