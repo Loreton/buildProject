@@ -19,6 +19,7 @@ import LnProcess                as proc
 import LnString                 as string
 import LnFormat                 as fmt
 import LnTime                   as time
+import LnCrypt                   as crypt
 
 if OpSys == 'Windows':
     import LnExcel                  as excel
