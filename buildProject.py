@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # -*- coding: iso-8859-1 -*-
-import sys, os; sys.dont_write_bytecode = True
-
+import os
+import sys;         sys.dont_write_bytecode = True
+import platform;    OpSys                = platform.system()
 import subprocess
 import shutil
 import textwrap
@@ -19,6 +20,7 @@ def copyTree(src, dst, symlinks=False, ignore=None):
     else:
         ignored_names = set()
 
+    # if not os.path.isdir(dst): os.makedirs(dst)
     os.makedirs(dst)
     errors = []
     for name in names:
@@ -43,7 +45,9 @@ def copyTree(src, dst, symlinks=False, ignore=None):
             errors.extend(err.args[0])
     try:
         shutil.copystat(src, dst)
-    except shutil.WindowsError:
+
+    except WindowsError, why:
+        print "ERROR: %s" % (why)
         # can't copy file access times on Windows
         pass
     except OSError as why:
@@ -171,7 +175,7 @@ if __name__ == "__main__":
         else:
             print "directory tree [%s] would be removed." % (workingDIR)
 
-
+    # sys.exit()
     print textwrap.dedent("""\
 
             # =================================================================
@@ -180,7 +184,19 @@ if __name__ == "__main__":
         """)
     sourceDIR       = mySEP.join([PyProjectDIR, PRJ_NAME])
     destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME])
-    copyTree(sourceDIR, destDIR, ignore=shutil.ignore_patterns('.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '_APPO*' ) )
+    # ignorePATTERN   = ['.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '_APPO*' ]
+    # ignorePATTERN.append('*.sh') if OpSys.upper() == 'WINDOWS' else ignorePATTERN.append('*.cmd')
+    # print ignorePATTERN, type(ignorePATTERN)
+    # ignorePATTERN = tuple(ignorePATTERN)
+    # print ignorePATTERN, type(ignorePATTERN)
+    # ignorePATTERN   = "'.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '_APPO*' "
+    # print ignorePATTERN, type(ignorePATTERN)
+    # copyTree(sourceDIR, destDIR, ignore=shutil.ignore_patterns(ignorePATTERN) )
+    print "%s --> %s" % (sourceDIR, destDIR)
+    if ACTION == '--GO':
+        copyTree(sourceDIR, destDIR, ignore=shutil.ignore_patterns('.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '_APPO*' ) )
+
+    # copyTree(sourceDIR, destDIR, ignore=shutil.ignore_patterns('.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '_APPO*' ) )
 
 
     print textwrap.dedent("""\
@@ -192,7 +208,11 @@ if __name__ == "__main__":
     LN_PKGNAME      = "LnFunctions"                                                # Nome del modulo che deve essere trasformato in pacchetto
     LnPackageDIR    = mySEP.join([PyProjectDIR, LN_PKGNAME])
     destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE",LN_PKGNAME ])
-    copyTree(LnPackageDIR, destDIR, ignore=shutil.ignore_patterns('.git*', 'tmp*' ) )
+    # ignorePATTERN   = ('.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '_APPO*' )
+    # ignorePATTERN.append('*.sh') if OpSys.upper() == 'WINDOWS' else ignorePATTERN.append('*.cmd')
+    print "%s --> %s" % (LnPackageDIR, destDIR)
+    if ACTION == '--GO':
+        copyTree(LnPackageDIR, destDIR, ignore=shutil.ignore_patterns('*.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '_APPO*' ) )
 
 
 
