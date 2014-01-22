@@ -296,3 +296,7 @@ if __name__ == "__main__":
         else:
             print "directory tree [%s] would be removed." % (workingDIR)
 
+    print "\n"*3
+    print "TGZ file is ready: %s.tgz" % (os.path.abspath(fileName))
+    print "\n"*3
+
