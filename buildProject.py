@@ -130,6 +130,8 @@ def LnRmTree(topDir):
             print "removing dir:", dirname
     os.rmdir(topDir)
 
+
+
 ################################################################################
 # - M A I N
 ################################################################################
@@ -184,19 +186,14 @@ if __name__ == "__main__":
         """)
     sourceDIR       = mySEP.join([PyProjectDIR, PRJ_NAME])
     destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME])
-    # ignorePATTERN   = ['.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '_APPO*' ]
-    # ignorePATTERN.append('*.sh') if OpSys.upper() == 'WINDOWS' else ignorePATTERN.append('*.cmd')
-    # print ignorePATTERN, type(ignorePATTERN)
-    # ignorePATTERN = tuple(ignorePATTERN)
-    # print ignorePATTERN, type(ignorePATTERN)
-    # ignorePATTERN   = "'.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '_APPO*' "
-    # print ignorePATTERN, type(ignorePATTERN)
-    # copyTree(sourceDIR, destDIR, ignore=shutil.ignore_patterns(ignorePATTERN) )
     print "%s --> %s" % (sourceDIR, destDIR)
-    if ACTION == '--GO':
-        copyTree(sourceDIR, destDIR, ignore=shutil.ignore_patterns('.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '_APPO*' ) )
+    if OpSys.upper() == 'WINDOWS':
+        ignoreFunc = shutil.ignore_patterns('*.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '*.sh' )
+    else:
+        ignoreFunc = shutil.ignore_patterns('*.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '*.cmd' )
 
-    # copyTree(sourceDIR, destDIR, ignore=shutil.ignore_patterns('.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '_APPO*' ) )
+    if ACTION == '--GO':
+        copyTree(sourceDIR, destDIR, ignore=ignoreFunc)
 
 
     print textwrap.dedent("""\
@@ -206,13 +203,17 @@ if __name__ == "__main__":
             # =================================================
         """)
     LN_PKGNAME      = "LnFunctions"                                                # Nome del modulo che deve essere trasformato in pacchetto
-    LnPackageDIR    = mySEP.join([PyProjectDIR, LN_PKGNAME])
+    sourceDIR       = mySEP.join([PyProjectDIR, LN_PKGNAME])
     destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE",LN_PKGNAME ])
-    # ignorePATTERN   = ('.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '_APPO*' )
-    # ignorePATTERN.append('*.sh') if OpSys.upper() == 'WINDOWS' else ignorePATTERN.append('*.cmd')
-    print "%s --> %s" % (LnPackageDIR, destDIR)
+    print "%s --> %s" % (sourceDIR, destDIR)
+    if OpSys.upper() == 'WINDOWS':
+        ignoreFunc = shutil.ignore_patterns('*.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '*.sh' )
+    else:
+        ignoreFunc = shutil.ignore_patterns('*.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '*.cmd' )
+
     if ACTION == '--GO':
-        copyTree(LnPackageDIR, destDIR, ignore=shutil.ignore_patterns('*.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '_APPO*' ) )
+        copyTree(sourceDIR, destDIR, ignore=ignoreFunc)
+
 
 
 
