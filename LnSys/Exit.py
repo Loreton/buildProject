@@ -9,47 +9,41 @@ EXIT_STACK  = -32
 # =======================================================================
 def exit(gv, rcode, text, stackLevel=2):
     Prj         = gv.Prj
+    LN         = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
     logger.debug('entered - [called by:%s]' % (calledBy(1)))
 
-    if isinstance(text, types.ListType):
+    if text == None:
+        textList = ['No error message passed']
+    elif isinstance(text, types.ListType):
         textList = text
         pass
     else:
         textList = text.split('\n')
 
+        # -------------------------------
+        # - Display dello STACK
+        # -------------------------------
+    logger.console(LN.cGREEN + "[EXIT called by (STACK):")
+    for i in range(1, 10):
+        caller = calledBy(i)
+        if caller != 'list index out of range':
+            logger.console(LN.cGREEN + "    %s" % (caller))
 
         # -------------------------------
         # - Display dell'Errore
         # -------------------------------
-    logger.info("Rcode: %d" % (rcode))
-    for line in textList:
-        logger.info("      Msg=%s" % (line))
-
-
-    if rcode == EXIT_STACK:
-        print '\n'*3
-        print '*'*60
-        traceback.print_stack()
-        print '*'*60
-
+    if rcode == 0:
+        TEXT_COLOR = LN.cGREEN
     else:
-        logger.info("\n"*4)
-        logger.info("*" + "== EXIT =="*8)
-        logger.info("*")
+        TEXT_COLOR = LN.cERROR
 
-        callerPrint(gv, stackLevel, rcode, BlankLINES=0, Indent="=     * ")
-        if rcode == 0:
-            logger.info("* %s!" % (textList))
-        else:
-            logger.error("*     * ERROR: Rcode...: %d" % (rcode))
-            # print '.............',textList
-            for line in textList:
-                logger.error("=     * ERROR: Message.: %s!" % (line))
 
-        logger.info("*")
-        logger.info("#"*40)
+    logger.console(TEXT_COLOR + "[RCODE: %d]" % (rcode))
+    logger.console(TEXT_COLOR + "[TEXT Message:]" )
+    for line in textList:
+        logger.console(LN.cWARNING + ' '*10 + "%s" % (line))
 
 
     logger.debug('exiting - [called by:%s]' % (calledBy(1)))

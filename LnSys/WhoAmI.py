@@ -37,8 +37,9 @@ def calledBy(deepLevel=0):
         caller = inspect.stack()[deepLevel + 1]
 
     except Exception, why:
-        message = "WARNING - [%s] \nNot important if you are aware." % (why)
-        print "\n\nLnSys.calledBy - " + message
+        # message = "WARNING - [%s] \nNot important if you are aware." % (why)
+        # print "\n\nLnSys.calledBy - " + message
+        return '%s' % (why)
         return 'Unknown - %s' % (why)
 
     programFile = caller[1]

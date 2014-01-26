@@ -1,8 +1,8 @@
 # outer __init__.py
 # -*- coding: iso-8859-1 -*-
 
-from  ReadIniFile           import readIniConfigFile as readIniConfigFile
-from  ReadIniFile_New       import readIniConfigFile_New as readIniConfigFile_New
+# from  ReadIniFile           import readIniConfigFile as readIniConfigFile
+# from  ReadIniFile_New       import readIniConfigFile_New as readIniConfigFile_New
 from  DirList               import dirList
 from  WriteFile             import writeFile
 from  WriteFile             import writeFile_ListOfList
@@ -18,3 +18,4 @@ from  MakeDirs              import makeDirs
 from  Zip                   import LnZipDir as zipDir
 from  DriveSpace            import driveSpace
 from  FolderSize            import getFolderSize
+from PrepareIniConfigFile       import prepareIniConfigFile

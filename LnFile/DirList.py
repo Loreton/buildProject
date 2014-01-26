@@ -9,10 +9,10 @@
 # -                                        by: Loreto Notarantonio (2010-02-16)
 # ##############################################################################################
 import os, fnmatch
-
+import types
 # ============================================================
 # Return a list of file names found in directory 'dirName'
-#    pattern: "*.x; *x*.y*" ....
+#    pattern: ["*.x", "*x*.y*", ...]
 #   deepFileIndicator   - è un nome di file che, se trovato, vuol dire che abbiamo raggiunto il livello massimo
 #   deepLevelNO         - Numero di livello (subtree) da analizzare
 #
@@ -24,7 +24,8 @@ import os, fnmatch
 #       Only Directories with 'txt' extensions will be added to the list.
 #
 # ============================================================
-def dirList(gv, dirName, pattern='*', what='FDS', getFullPath=True, deepFileIndicator='1234ABCD.ZXC', deepLevelNO=99, static_MaxRCODE=[0]):
+def dirList(gv, dirName, patternLIST=['*'], what='FDS', getFullPath=True, deepFileIndicator='1234ABCD.ZXC', deepLevelNO=99, static_MaxRCODE=[0]):
+
     fDEBUG      = False # essendo ricorsivo è meglio controllare il logger manualmente altrimenti scrive moltissimo
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
@@ -39,14 +40,15 @@ def dirList(gv, dirName, pattern='*', what='FDS', getFullPath=True, deepFileIndi
 
 
     deepLevelNO -= 1
-    if fDEBUG == True: logger.debug("entering into dir: %s searching for %s" % (dirName, pattern) )
+    if isinstance(patternLIST, types.StringType):patternLIST = [patternLIST]
+    if fDEBUG == True: logger.debug("entering into dir: %s searching for %s" % (dirName, patternLIST) )
 
 
         # limit the Subdirs at current level (The next iteration do not enter into SubDirs)    - da aggiustare
     if os.path.isfile(os.path.join(dirName, deepFileIndicator) ):
         what = what.replace('S', '')    # Eliminiamo il il SUBDIRs
     if deepLevelNO < 0:
-        return fileList
+        return MaxRCODE, fileList
 
 
     # -----------------------------------------------
@@ -55,7 +57,7 @@ def dirList(gv, dirName, pattern='*', what='FDS', getFullPath=True, deepFileIndi
     # -----------------------------------------------
     try:
         for file in os.listdir(dirName):
-            for fSpec in pattern.split(';'):        # Splitting the pattern
+            for fSpec in patternLIST:        # Splitting the pattern
                 fSpec = fSpec.strip()
                 dirfile = os.path.join(dirName, file)
                 if fnmatch.fnmatch(file, fSpec):    # cerca il MATCH nel nome del file
@@ -67,8 +69,8 @@ def dirList(gv, dirName, pattern='*', what='FDS', getFullPath=True, deepFileIndi
                         else:           fileList.append( file)
 
                 if SUBDIRS and os.path.isdir(dirfile):
-                    if fDEBUG == True: logger.debug("going into dir: %s\\%s" % (dirfile, fSpec) )
-                    (rCode, newList) = dirList(gv, dirfile, pattern=fSpec, what=what, getFullPath=getFullPath, deepFileIndicator=deepFileIndicator, deepLevelNO=deepLevelNO)
+                    logger.debug("going into dir: %s\\%s" % (dirfile, fSpec) )
+                    (rCode, newList) = dirList(gv, dirfile, patternLIST=fSpec, what=what, getFullPath=getFullPath, deepFileIndicator=deepFileIndicator, deepLevelNO=deepLevelNO)
                     MaxRCODE = max(MaxRCODE, rCode)
                     fileList.extend(newList)
 
@@ -76,11 +78,12 @@ def dirList(gv, dirName, pattern='*', what='FDS', getFullPath=True, deepFileIndi
         if dirName.find('System Volume Information') >= 0:
             pass
         else:
-            logger.error("Listing directory:\n [%s%s%s]\n\n %s" % (dirName, os.sep, pattern, str(why)))
+            # logger.error("Listing directory:....\n [%s]\n\n %s" % (dirName,  str(why)))
+            logger.error("Listing directory:\n [%s%s%s]\n\n %s" % (dirName, os.sep, fSpec, str(why)))
             MaxRCODE = max(MaxRCODE, 10)
 
 
-    if fDEBUG == True: logger.info("exiting  from dir: %s" % (dirName) )
+    logger.debug("exiting  from dir: %s" % (dirName) )
     return MaxRCODE, fileList
 
 

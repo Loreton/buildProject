@@ -21,8 +21,8 @@ import types
 # -                        V  se vogliamo Value
 # -
 # #########################################################################################
-def printDictionaryTree(gv, dictID, header=None, MaxDeepLevel=999, level=0, retCols='LTV', lTAB='', console=False, listInLine=5):
-    LN      = gv.LN
+def printDictionaryTree(gv, dictID, header=None, MaxDeepLevel=999, level=0, retCols='LTV', lTAB='', console=False, listInLine=5, exit=False):
+    LN          = gv.LN
     logger      = gv.LN.logger
     calledBy    = gv.LN.sys.calledBy
     logger.debug('entered - [called by:%s]' % (calledBy(1)))
@@ -52,25 +52,12 @@ def printDictionaryTree(gv, dictID, header=None, MaxDeepLevel=999, level=0, retC
 
 
 
-    # if header:
-    #     logger.info("*"*60)
-    #     logger.info("*     %s" % (header) )
-    #     logger.info("*"*60)
-
-    #     if console:
-    #         print
-    #         print lTAB + "*"*60
-    #         print lTAB + "*     %s" % (header)
-    #         print lTAB + "*"*60
-    #         print
-
-    # for line in lista:
-    #     outLine ="%s%s" % (lTAB, line)
-    #     if header:  logger.info(outLine)
-    #     if console: print outLine
-
-
     logger.debug('exiting - [called by:%s]' % (calledBy(1)))
+    # print '..........sono qui'
+    if exit:
+        LN.sys.exit(gv, 0, header)
+        # sys.exit()
+        # gv.Prj.exit(gv, -99, header)
 
 
 

@@ -15,7 +15,7 @@ from   types import *                     # per StringType, etc
 # * 12-03-2013 - Cambiato keyLIST in validKeys
 # * 01-01-2014 - modificato il validKeysLIST.
 # ###########################################################################
-def getKeyboardInput(gv, msg, validKeys='ENTER', exitKey='X', deepLevel=3, fDEBUG=False, keySep=","):
+def getKeyboardInput(gv, msg, validKeys='ENTER', exitKey='X', deepLevel=1, fDEBUG=False, keySep=","):
     Prj         = gv.Prj
     LN          = gv.LN
     logger      = gv.LN.logger
