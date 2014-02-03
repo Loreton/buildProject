@@ -2,5 +2,9 @@
 # -*- coding: iso-8859-1 -*-
 
 
-import LN_ZipClass                  as LnZip
+from LN_ZipClass                import LnZipClass as LnZip
+from CopyTree                   import copyTree
+from Time                       import timeGetNow
+from RunCommand                 import runCommand
+from RemoveTree                 import rmTree
 
