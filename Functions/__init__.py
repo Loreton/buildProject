@@ -6,5 +6,5 @@ from LN_ZipClass                import LnZipClass as LnZip
 from CopyTree                   import copyTree
 from Time                       import timeGetNow
 from RunCommand                 import runCommand
-from RemoveTree                 import rmTree
+from DeleteTree                 import delTree
 

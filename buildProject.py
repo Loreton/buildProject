@@ -55,7 +55,7 @@ if __name__ == "__main__":
     if os.path.isdir(workingDIR):
         if ACTION == '--GO':
             print "removing directory tree [%s]" % (workingDIR)
-            LN.rmTree(workingDIR)
+            LN.delTree(workingDIR)
         else:
             print "directory tree [%s] would be removed." % (workingDIR)
 
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     appoDir  = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE" ])
     if ACTION == '--GO':
         print "removing directory tree [%s]" % (appoDir)
-        LN.rmTree(appoDir)
+        LN.delTree(appoDir)
     else:
         print "directory tree [%s] would be removed." % (appoDir)
 
@@ -165,7 +165,7 @@ if __name__ == "__main__":
     if os.path.isdir(workingDIR):
         if ACTION == '--GO':
             print "removing directory tree [%s]" % (workingDIR)
-            LN.rmTree(workingDIR)
+            LN.delTree(workingDIR)
         else:
             print "directory tree [%s] would be removed." % (workingDIR)
 
