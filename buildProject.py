@@ -26,11 +26,16 @@ if __name__ == "__main__":
         PRJ_PKGNAME = PRJ_NAME                          # Nome della root directory all'interno del tar e nome del tar.
     if len(sys.argv) >= 3: ACTION   = sys.argv[2].upper()
 
+    LN_PKGNAME_DEFAULT = 'LnFunctions'
+
     if PRJ_NAME == 'JBoss610_Admin':
-        LN_PKGNAME      = "LnFunctions610"                     # Nome della directory contenente le funzioni generali
+        LN_PKGNAME = "LnFunctions610"                     # Nome della directory contenente le funzioni generali
+
+    elif PRJ_NAME in ['ciao', 'pippo']:
+        LN_PKGNAME = None                     # Nome della directory contenente le funzioni generali
+
     else:
-        LN_PKGNAME      = None                     # Nome della directory contenente le funzioni generali
-        LN_PKGNAME      = "LnFunctions"                        # Nome della directory contenente le funzioni generali
+        LN_PKGNAME = LN_PKGNAME_DEFAULT                        # Nome della directory contenente le funzioni generali
 
 
     mySEP = '/'
@@ -92,7 +97,7 @@ if __name__ == "__main__":
                 # =================================================================
                 """);print '\n' + msg
         sourceDIR       = mySEP.join([rootDIR, LN_PKGNAME])
-        destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE",LN_PKGNAME ])
+        destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE", LN_PKGNAME_DEFAULT ])
         print "%s --> %s" % (sourceDIR, destDIR)
         if OpSys.upper() == 'WINDOWS':
             ignoreFunc = shutil.ignore_patterns('*.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '*.sh' )
