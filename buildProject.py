@@ -26,6 +26,13 @@ if __name__ == "__main__":
         PRJ_PKGNAME = PRJ_NAME                          # Nome della root directory all'interno del tar e nome del tar.
     if len(sys.argv) >= 3: ACTION   = sys.argv[2].upper()
 
+    if PRJ_NAME == 'JBoss610_Admin':
+        LN_PKGNAME      = "LnFunctions610"                     # Nome della directory contenente le funzioni generali
+    else:
+        LN_PKGNAME      = None                     # Nome della directory contenente le funzioni generali
+        LN_PKGNAME      = "LnFunctions"                        # Nome della directory contenente le funzioni generali
+
+
     mySEP = '/'
 
     thisModuleDIR       = os.path.dirname(os.path.realpath(__file__)).replace("\\", mySEP)
@@ -78,22 +85,22 @@ if __name__ == "__main__":
         LN.copyTree(sourceDIR, destDIR, ignore=ignoreFunc)
 
 
-    msg = textwrap.dedent("""\
-            # =================================================================
-            # = Effettua una copia di LnPackage sulla dir di BUILD
-            # =================================================================
-            """);print '\n' + msg
-    LN_PKGNAME      = "LnFunctions"                                                # Nome del modulo che deve essere trasformato in pacchetto
-    sourceDIR       = mySEP.join([rootDIR, LN_PKGNAME])
-    destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE",LN_PKGNAME ])
-    print "%s --> %s" % (sourceDIR, destDIR)
-    if OpSys.upper() == 'WINDOWS':
-        ignoreFunc = shutil.ignore_patterns('*.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '*.sh' )
-    else:
-        ignoreFunc = shutil.ignore_patterns('*.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '*.cmd' )
+    if LN_PKGNAME:
+        msg = textwrap.dedent("""\
+                # =================================================================
+                # = Effettua una copia di LnPackage sulla dir di BUILD
+                # =================================================================
+                """);print '\n' + msg
+        sourceDIR       = mySEP.join([rootDIR, LN_PKGNAME])
+        destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE",LN_PKGNAME ])
+        print "%s --> %s" % (sourceDIR, destDIR)
+        if OpSys.upper() == 'WINDOWS':
+            ignoreFunc = shutil.ignore_patterns('*.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '*.sh' )
+        else:
+            ignoreFunc = shutil.ignore_patterns('*.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '*.cmd' )
 
-    if ACTION == '--GO':
-        LN.copyTree(sourceDIR, destDIR, ignore=ignoreFunc)
+        if ACTION == '--GO':
+            LN.copyTree(sourceDIR, destDIR, ignore=ignoreFunc)
 
 
 
