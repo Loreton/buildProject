@@ -14,18 +14,35 @@ import Functions as LN
 # - M A I N
 ################################################################################
 if __name__ == "__main__":
+
+    ACTION  = ''
+    gOPTION = '--GO'
+    vOPTION = '--verbose'
+    VERBOSE = False
+
     if len(sys.argv) == 1:
         print "\n"*2
-        print "immettere il nome del progetto (Directory dello stesso)"
+        print '%s [%s] %s [%s]' % (sys.argv[0], vOPTION, "\"Directory del progetto\"", gOPTION)
         print "\n"*2
         sys.exit()
 
-    ACTION = ''
-    if len(sys.argv) >= 2:
-        PRJ_NAME    = sys.argv[1]
-        PRJ_PKGNAME = PRJ_NAME                          # Nome della root directory all'interno del tar e nome del tar.
-    if len(sys.argv) >= 3: ACTION   = sys.argv[2].upper()
+    if sys.argv[1].upper() == vOPTION.upper(): 
+        VERBOSE = True
+        if len(sys.argv) > 2:
+            PRJ_NAME = sys.argv[2]
+        else:
+            print "\n"*2
+            print '%s [%s] %s [%s]' % (sys.argv[0], vOPTION, "\"Directory del progetto\"", gOPTION)
+            print "\n"*2
+            sys.exit()
+        if len(sys.argv) > 3:
+            ACTION   = sys.argv[3].upper()
+    else:
+        PRJ_NAME = sys.argv[1]
+        if len(sys.argv) > 2:
+            ACTION  = sys.argv[2].upper()
 
+    PRJ_PKGNAME = PRJ_NAME                          # Nome della root directory all'interno del tar e nome del tar.
     LN_PKGNAME_DEFAULT = 'LnFunctions'
 
     if PRJ_NAME == 'JBoss610_Admin':
@@ -67,7 +84,7 @@ if __name__ == "__main__":
     if os.path.isdir(workingDIR):
         if ACTION == '--GO':
             print "removing directory tree [%s]" % (workingDIR)
-            LN.delTree(workingDIR)
+            LN.delTree(workingDIR, VERBOSE)
         else:
             print "directory tree [%s] would be removed." % (workingDIR)
 
@@ -97,7 +114,7 @@ if __name__ == "__main__":
                 # =================================================================
                 """);print '\n' + msg
         sourceDIR       = mySEP.join([rootDIR, LN_PKGNAME])
-        destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE", LN_PKGNAME_DEFAULT ])
+        destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME, "bin", "SOURCE", LN_PKGNAME_DEFAULT ])
         print "%s --> %s" % (sourceDIR, destDIR)
         if OpSys.upper() == 'WINDOWS':
             ignoreFunc = shutil.ignore_patterns('*.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '*.sh' )
@@ -114,7 +131,7 @@ if __name__ == "__main__":
             # = Creating zipPackage
             # =================================================================
             """); print '\n' + msg
-    sourceDIR   = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE" ])
+    sourceDIR   = mySEP.join([workingDIR, PRJ_PKGNAME, "bin", "SOURCE"])
     zipName     = "%s/%s/bin/%s.zip" % (workingDIR, PRJ_PKGNAME, PRJ_PKGNAME)
     print "creating zipFile:", zipName
     print "  with directory:", sourceDIR
@@ -133,10 +150,10 @@ if __name__ == "__main__":
             # = Removing SOURCE direcotry (before creating TAR
             # =================================================================
             """); print '\n' + msg
-    appoDir  = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE" ])
+    appoDir  = mySEP.join([workingDIR, PRJ_PKGNAME, "bin", "SOURCE" ])
     if ACTION == '--GO':
         print "removing directory tree [%s]" % (appoDir)
-        LN.delTree(appoDir)
+        LN.delTree(appoDir, VERBOSE)
     else:
         print "directory tree [%s] would be removed." % (appoDir)
 
@@ -162,7 +179,11 @@ if __name__ == "__main__":
     for pattern in EXcludeFromTAR:
         excludePattern += ' --exclude=%s' % (pattern)
 
-    TAR_CMD = "tar %s -cvzf %s *" % (excludePattern, tarOutFile)
+    if VERBOSE:
+        TAR_CMD = "tar %s -cvzf %s *" % (excludePattern, tarOutFile)
+    else:
+        TAR_CMD = "tar %s -czf %s *" % (excludePattern, tarOutFile)
+
     print "Executing...:", TAR_CMD
 
     if ACTION == '--GO':
@@ -177,7 +198,7 @@ if __name__ == "__main__":
     if os.path.isdir(workingDIR):
         if ACTION == '--GO':
             print "removing directory tree [%s]" % (workingDIR)
-            LN.delTree(workingDIR)
+            LN.delTree(workingDIR, VERBOSE)
         else:
             print "directory tree [%s] would be removed." % (workingDIR)
 
