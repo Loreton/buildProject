@@ -26,7 +26,7 @@ if __name__ == "__main__":
         print "\n"*2
         sys.exit()
 
-    if sys.argv[1].upper() == vOPTION.upper(): 
+    if sys.argv[1].upper() == vOPTION.upper():
         VERBOSE = True
         if len(sys.argv) > 2:
             PRJ_NAME = sys.argv[2]
@@ -114,7 +114,7 @@ if __name__ == "__main__":
                 # =================================================================
                 """);print '\n' + msg
         sourceDIR       = mySEP.join([rootDIR, LN_PKGNAME])
-        destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME, "bin", "SOURCE", LN_PKGNAME_DEFAULT ])
+        destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE", LN_PKGNAME_DEFAULT ])
         print "%s --> %s" % (sourceDIR, destDIR)
         if OpSys.upper() == 'WINDOWS':
             ignoreFunc = shutil.ignore_patterns('*.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '*.sh' )
@@ -131,7 +131,7 @@ if __name__ == "__main__":
             # = Creating zipPackage
             # =================================================================
             """); print '\n' + msg
-    sourceDIR   = mySEP.join([workingDIR, PRJ_PKGNAME, "bin", "SOURCE"])
+    sourceDIR   = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE"])
     zipName     = "%s/%s/bin/%s.zip" % (workingDIR, PRJ_PKGNAME, PRJ_PKGNAME)
     print "creating zipFile:", zipName
     print "  with directory:", sourceDIR
@@ -150,7 +150,7 @@ if __name__ == "__main__":
             # = Removing SOURCE direcotry (before creating TAR
             # =================================================================
             """); print '\n' + msg
-    appoDir  = mySEP.join([workingDIR, PRJ_PKGNAME, "bin", "SOURCE" ])
+    appoDir  = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE" ])
     if ACTION == '--GO':
         print "removing directory tree [%s]" % (appoDir)
         LN.delTree(appoDir, VERBOSE)
