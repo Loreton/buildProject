@@ -8,6 +8,48 @@ import textwrap
 
 import Functions as LN
 
+# Nomi progetti per cui i package possono essere accorpati sotto lo stenno nome
+CMK_Common62x   = ['JBoss610_CMK', 'JBoss620_CMK', 'JBoss621_CMK']
+Admin_Common62x = ['JBoss610_Admin', 'JBoss620_Admin', 'JBoss621_Admin']
+NO_LN_PACKAGE   = ['JBoss610_Admin']
+
+
+
+################################################################################
+# - getPackageName()
+################################################################################
+def getPackageName(PRJ_NAME):
+        # valori di default
+    PRJ_PKGNAME = PRJ_NAME                          # Nome della root directory all'interno del tar e nome del tar.
+    LN_PKGNAME  = 'LnFunctions'                        # Nome della directory contenente le funzioni generali
+
+        # ----- Package NAME
+    if PRJ_NAME in  CMK_Common62x:        PRJ_PKGNAME = 'JBossCMK'
+    if PRJ_NAME in  Admin_Common62x:      PRJ_PKGNAME = 'JBossAdmin'
+
+        # ----- LnPackage NAME
+
+    if   PRJ_NAME in NO_LN_PACKAGE:     LN_PKGNAME = None                     # Nome della directory contenente le funzioni generali
+    elif PRJ_NAME == 'JBoss610_Admin':  LN_PKGNAME = "LnFunctions610"                     # Nome della directory contenente le funzioni generali
+
+
+
+    return PRJ_PKGNAME, LN_PKGNAME
+
+
+################################################################################
+# - getZipFname()
+################################################################################
+def getZipFname(PRJ_NAME):
+        # valori di default
+    ZIP_FNAME = PRJ_NAME
+
+    if   PRJ_NAME in  CMK_Common62x:      ZIP_FNAME = 'JBossCMK'
+    elif PRJ_NAME in  Admin_Common62x:    ZIP_FNAME = 'JBossAdmin'
+
+
+    return ZIP_FNAME
+
 
 
 ################################################################################
@@ -42,17 +84,8 @@ if __name__ == "__main__":
         if len(sys.argv) > 2:
             ACTION  = sys.argv[2].upper()
 
-    PRJ_PKGNAME = PRJ_NAME                          # Nome della root directory all'interno del tar e nome del tar.
-    LN_PKGNAME_DEFAULT = 'LnFunctions'
 
-    if PRJ_NAME == 'JBoss610_Admin':
-        LN_PKGNAME = "LnFunctions610"                     # Nome della directory contenente le funzioni generali
-
-    elif PRJ_NAME in ['ciao', 'pippo']:
-        LN_PKGNAME = None                     # Nome della directory contenente le funzioni generali
-
-    else:
-        LN_PKGNAME = LN_PKGNAME_DEFAULT                        # Nome della directory contenente le funzioni generali
+    (PRJ_PKGNAME, LN_PKGNAME) = getPackageName(PRJ_NAME)
 
 
     mySEP = '/'
@@ -114,7 +147,7 @@ if __name__ == "__main__":
                 # =================================================================
                 """);print '\n' + msg
         sourceDIR       = mySEP.join([rootDIR, LN_PKGNAME])
-        destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE", LN_PKGNAME_DEFAULT ])
+        destDIR         = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE", LN_PKGNAME ])
         print "%s --> %s" % (sourceDIR, destDIR)
         if OpSys.upper() == 'WINDOWS':
             ignoreFunc = shutil.ignore_patterns('*.git*', 'tmp*', '*.json', '*.fmted', 'rpdb2.py', '*.sh' )
@@ -132,7 +165,7 @@ if __name__ == "__main__":
             # =================================================================
             """); print '\n' + msg
     sourceDIR   = mySEP.join([workingDIR, PRJ_PKGNAME, "SOURCE"])
-    zipName     = "%s/%s/bin/%s.zip" % (workingDIR, PRJ_PKGNAME, PRJ_PKGNAME)
+    zipName     = "%s/%s/bin/%s.zip" % (workingDIR, PRJ_PKGNAME, getZipFname(PRJ_NAME))
     print "creating zipFile:", zipName
     print "  with directory:", sourceDIR
     excludePattern = ['.git' + os.sep]
@@ -189,6 +222,7 @@ if __name__ == "__main__":
     if ACTION == '--GO':
         LN.runCommand(TAR_CMD, wkdir=tarInputDir)
 
+    sys.exit()
     msg = textwrap.dedent("""\
             # =================================================================
             # - Removing Working Directory
