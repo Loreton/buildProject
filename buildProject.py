@@ -222,7 +222,7 @@ if __name__ == "__main__":
     if ACTION == '--GO':
         LN.runCommand(TAR_CMD, wkdir=tarInputDir)
 
-    sys.exit()
+
     msg = textwrap.dedent("""\
             # =================================================================
             # - Removing Working Directory
